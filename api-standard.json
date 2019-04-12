@@ -1,0 +1,197 @@
+{
+  "controls": [
+  {
+    "name": "mouseposition",
+    "options": {
+      "targetelement": "o-footer-l",
+      "coordinate_precision": 2
+    }
+  }, 
+  {
+    "name": "internalApi"
+  }],
+  "projectionCode": "EPSG:3006",
+  "projectionExtent": [
+    487000.0, 6803000.0, 773720.0, 7376440.0
+  ],
+  "proj4Defs": [{
+    "code": "EPSG:3006",
+    "alias": "urn:ogc:def:crs:EPSG::3006",
+    "projection": "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+  }],
+  "extent": [
+    487000.0, 6803000.0, 773720.0, 7376440.0
+  ],
+  "center": [
+    617820, 6920585
+  ],
+  "zoom": 3,
+  "resolutions": [
+    280,
+    140,
+    70,
+    28,
+    14,
+    7,
+    4.2,
+    2.8,
+    1.4,
+    0.56,
+    0.28,
+    0.14,
+    0.112,
+    0.056
+  ],
+  "source": {
+    "local": {
+      "url": "http://localhost/geoserver/wms"
+    },
+    "sundsvall-gwc": {
+      "url": "http://extmaptest.sundsvall.se/geoserver/gwc",
+      "version": "1.1.1"
+    },
+    "sundsvall-wms": {
+      "url": "http://extmaptest.sundsvall.se/geoserver/wms",
+      "version": "1.1.1"
+    },
+	  "sgu-wms": {
+      "url": "https://cors-anywhere.herokuapp.com/http://maps3.sgu.se/geoserver/ows",
+      "version": "1.1.1"
+    },
+    "metria-wms": {
+      "url": "https://cors-anywhere.herokuapp.com/http://gis-services.metria.se/arcgis/rest/services/msb/InspireMSB_Oversvamning_Oversiktliga/MapServer/exts/InspireView/service?",
+      "version": "1.1.1"
+    },
+	  "metrianatur-wms": {
+      "url": "https://cors-anywhere.herokuapp.com/http://nvpub.vic-metria.nu/arcgis/services/Naturvardsregistret/MapServer/WmsServer?",
+      "version": "1.1.1"
+    },
+    "trafikverket-wms": {
+      "url": "http://geo-netinfo.trafikverket.se/MapService/wms.axd/NetInfo?SERVICE=WMS&",
+      "version": "1.1.1"
+    },
+    "sundsvall-wfs": {
+      "url": "http://extmaptest.sundsvall.se/geoserver/wfs",
+      "version": "1.1.1"
+    },
+	 "sundsvall443": {
+      "url": "https://extmap.sundsvall.se:443/geoserver/gwc/service/wms?SERVICE=WMS&",
+      "version": "1.1.1"
+    },
+    "basemap": {
+      "url": "http://extmaptest.sundsvall.se/geoserver/wms",
+      "version": "1.1.0"
+    }
+  },
+  "groups": [],
+  "layers": [{
+    "attribution": "Kartan har ingen rättsverkan och du kan alltså INTE se exakta gränser i denna karttjänst &copy Lantmäteriet Geodatasamverkan",
+    "format": "image/png",
+    "group": "background",
+    "name": "Lantmateriet:topowebbkartan_nedtonad",
+    "source": "basemap",
+    "queryable": false,
+    "title": "Karta, grå",
+    "type": "WMS",
+    "style": "karta_gra",
+    "visible": true
+  }, {
+    "attribution": "&copy Lantmäteriet Geodatasamverkan",
+    "format": "image/png",
+    "group": "background",
+    "id": "Lantmateriet:topowebbkartan",
+    "name": "Lantmateriet:topowebbkartan",
+    "source": "basemap",
+    "queryable": false,
+    "title": "Karta, färg",
+    "type": "WMS",
+    "style": "karta_farg",
+    "visible": false
+  }, {
+    "attribution": "&copy Lantmäteriet Geodatasamverkan",
+    "format": "image/jpeg",
+    "group": "background",
+    "name": "Lantmateriet:Ortofoto50_25cm",
+    "source": "basemap",
+    "queryable": false,
+    "title": "Flygfoto",
+    "type": "WMS",
+    "style": "orto",
+    "visible": false
+  }],
+  "featureinfoOptions": {
+    "pinning": false
+  },
+  "styles": {
+    "mask": [
+      [{
+        "stroke": {
+          "color": "rgba(0,0,0,1.0)"
+        },
+        "fill": {
+          "color": "rgba(0,0,0,1.0)"
+        }
+      }]
+    ],
+    "origo-logo": [
+      [{
+        "circle": {
+          "radius": 16,
+          "stroke": {
+            "color": "rgba(0,0,0,1)",
+            "width": 5
+          },
+          "fill": {
+            "color": "rgba(255,255,255,0.9)"
+          }
+        }
+      }, {
+        "circle": {
+          "radius": 4,
+          "stroke": {
+            "color": "rgba(0,0,0,0)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(37,129,196,1)"
+          }
+        }
+      }]
+    ],
+    "cirkel": [
+      [{
+        "circle": {
+          "radius": 6,
+          "stroke": {
+            "color": "rgba(0,0,0,1)",
+            "width": 2
+          },
+          "fill": {
+            "color": "rgba(0,0,0,0.5)"
+          }
+        }
+      }]
+    ],
+    "karta_gra": [
+      [{
+        "image": {
+          "src": "img/png/gra.png"
+        }
+      }]
+    ],
+    "karta_farg": [
+      [{
+        "image": {
+          "src": "img/png/farg.png"
+        }
+      }]
+    ],
+    "orto": [
+      [{
+        "image": {
+          "src": "img/png/orto.png"
+        }
+      }]
+    ]
+  }
+}

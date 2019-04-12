@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <title>Origo exempel</title>
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+    body {
+        background-color: linen;
+    }
+    
+    h1 {
+        color: maroon;
+        margin: 40px;
+        text-align: center;
+    }
+    
+    #embedded-map-wrapper {
+        height: 500px;
+        width: 50%;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1> Hej! Den här sidan är en API demo :)</h3>
+        <div id="embedded-map-wrapper"> </div>
+    </div>
+    <script src="dist/origo.js"></script>   <!-- may be loaded by origoApi.js -->
+    <script src="origoApi.js"></script>
+    <script src="api-data.js"></script>
+    <script type="text/javascript">
+
+    // example of a html content:
+    var htmlContent = '<div>' +
+                        '<ul>' +
+                          '<li> <b> id: </b> 4180890 </li>' +
+                          '<li> <b> name: </b> Timra </li>' +
+                        '</ul> ' +
+                      '</div>';
+
+    var onClickStyles = {       
+        Point: {
+            radius: 5,
+            fill: {
+                color: "blue"
+            },
+            stroke: {
+                color: "brown", 
+                width: 1
+            }
+        },
+        Polygon: {
+            stroke: {
+                color: "rgba(100,169,100, 1.0)",
+                width: 2
+            },
+            fill: {
+                color: "#f4257b"
+            }
+        }
+    };
+
+    var onClickCallback = function(feature) {
+        origoApi.setFeatureStyle(feature, onClickStyles);
+
+        // This function can be called with arguments: (feature, title, htmlContent)
+        // if not provided title and content will be set from feature's property
+        // origoApi.showPopupForThisFeature(feature, 'myTitle', htmlContent);
+        origoApi.showPopupForThisFeature(feature);
+        // origoApi.setCenter(feature.getGeometry().getInteriorPoint().getCoordinates());
+    };
+
+    var afterInitializationCallback = function() {
+        
+        var styles1 = {
+            Point: {
+                radius: 5,
+                fill: {
+                    color: "#ffff1a"
+                },
+                stroke: {
+                    color: "brown", 
+                    width: 1
+                }
+            },
+            Polygon: {
+                stroke: {
+                    color: "rgba(1,169,1, 1.0)",
+                    width: 2
+                },
+                fill: {
+                    color: "rgba(0,150,90,0.2)"
+                }
+            }
+        };
+
+        var styles2 = {
+            Point: {
+                radius: 10,
+                fill: {
+                    color: "rgba(0,10,9,0.3)"
+                },
+                stroke: {
+                    color: "gray", 
+                    width: 2
+                }
+            },
+            Polygon: {
+                stroke: {
+                    color: "rgba(88,19,10, 1.0)",
+                    width: 2
+                },
+                fill: {
+                    color: "rgba(180,150,22,0.2)"
+                }
+            }
+        };
+
+        // every layer has a uniform style. different layers can have different styles.
+        origoApi.setZoom(4);
+        origoApi.setCenter([619120, 6920587]);
+              
+        origoApi.addLayer('layer1');
+        origoApi.addLayer('layer2');
+       
+        origoApi.addFeatures(featureCollection, 'layer1');
+        origoApi.addFeatures(featureCollection2, 'layer2');
+
+        origoApi.setLayerStyle(styles1, 'layer1');
+        origoApi.setLayerStyle(styles2, 'layer2');
+       
+        origoApi.onFeatureClicked(onClickCallback);    
+    };
+
+    var apiOptions = {};
+    
+    apiOptions.configFileName = 'api-standard.json';
+    // Note that this must br idendical to the id given to the div element above
+    apiOptions.embeddedMapContainer = 'embedded-map-wrapper';
+
+    // Init origo api
+    origoApi.init(afterInitializationCallback, apiOptions);
+
+    </script>
+</body>
+
+</html>
