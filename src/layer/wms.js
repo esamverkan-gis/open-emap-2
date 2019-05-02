@@ -21,7 +21,7 @@ function createTileSource(options) {
       TILED: true,
       VERSION: options.version,
       FORMAT: options.format,
-      STYLES: options.style
+      STYLES: options.style || ''
     }
   }));
 }
@@ -70,11 +70,12 @@ const wms = function wms(layerOptions) {
   sourceOptions.projectionCode = viewer.getProjectionCode();
   sourceOptions.id = wmsOptions.id;
   sourceOptions.format = wmsOptions.format ? wmsOptions.format : sourceOptions.format;
+  wmsOptions.serverType = sourceOptions.serverType || 'geoserver';
   const styleSettings = viewer.getStyleSettings()[wmsOptions.styleName];
-  const sldStyleObject = styleSettings[0].find(s => s.sldStyle);
-  if (sldStyleObject) {
-    sourceOptions.style = sldStyleObject.sldStyle;
-  }
+  // const sldStyleObject = styleSettings[0].find(s => s.sldStyle);
+  // if (sldStyleObject) {
+  //   sourceOptions.style = sldStyleObject.sldStyle;
+  // }
 
   if (wmsOptions.tileGrid) {
     sourceOptions.tileGrid = maputils.tileGrid(wmsOptions.tileGrid);
@@ -93,8 +94,8 @@ const wms = function wms(layerOptions) {
     layer = image(wmsOptions, createImageSource(sourceOptions));
   }
   let source = createTileSource(sourceOptions);
-  // Add listener for failed load requests. If more than 5 
-  // failures has occurred display a dialog to the user 
+  // Add listener for failed load requests. If more than 5
+  // failures has occurred display a dialog to the user
   var reqLoadErrorHasBeenDisplayedToUser = true;
   var reqLoadErrorCounter = 0;
   source.on('tileloaderror', function (event) {
@@ -104,7 +105,7 @@ const wms = function wms(layerOptions) {
       reqLoadErrorInformTheUser(layerOptions.name, layerOptions.title);
     }
   });
-  
+
   return tile(wmsOptions, source);
 };
 

@@ -10,13 +10,27 @@ let map;
 function getGetFeatureInfoUrl(layer, coordinate) {
   const resolution = map.getView().getResolution();
   const projection = viewer.getProjection();
+  const serverType = layer.get('serverType') || 'geoserver';
+  let infoFormat;
+
+  switch (serverType.toLowerCase()) {
+    case 'geoserver':
+      infoFormat = 'application/json';
+      break;
+    case 'ags':
+      infoFormat = 'application/geojson';
+      break;
+    default:
+      infoFormat = 'application/json';
+      break;
+  }
   const url = layer.getSource().getGetFeatureInfoUrl(coordinate, resolution, projection, {
-    INFO_FORMAT: 'application/json',
+    INFO_FORMAT: infoFormat,
     FEATURE_COUNT: '20'
   });
 
   return $.ajax(url, {
-    type: 'post'
+    type: 'GET'
   })
     .then((response) => {
       if (response.error) {
