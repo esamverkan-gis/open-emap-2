@@ -1,5 +1,6 @@
 import 'owl.carousel';
 import Overlay from 'ol/overlay';
+import Point from 'ol/geom/point';
 import $ from 'jquery';
 import viewer from './viewer';
 import Popup from './popup';
@@ -40,11 +41,12 @@ function clear() {
 function callback(evt) {
   const currentItem = evt.item.index;
   if (currentItem !== null) {
+    const geometryType = items[currentItem].feature.getGeometry() ? items[currentItem].feature.getGeometry().getType() : 'Point';
     const clone = items[currentItem].feature.clone();
     clone.setId(items[currentItem].feature.getId());
     selectionLayer.clearAndAdd(
       clone,
-      selectionStyles[items[currentItem].feature.getGeometry().getType()]
+      selectionStyles[geometryType]
     );
     selectionLayer.setSourceLayer(items[currentItem].layer);
     if (identifyTarget === 'overlay') {
@@ -136,7 +138,17 @@ function identify(identifyItems, target, coordinate) {
         positioning: 'bottom-center'
       });
       const geometry = items[0].feature.getGeometry();
-      const coord = geometry.getType() === 'Point' ? geometry.getCoordinates() : coordinate;
+      let coord;
+      if (geometry) {
+        if (geometry.getType() === 'Point') {
+          coord = geometry.getCoordinates();
+        } else {
+          coord = coordinate;
+        }
+      } else {
+        coord = coordinate;
+        items[0].feature.setGeometry(new Point(coordinate));
+      }
       map.addOverlay(overlay);
       overlay.setPosition(coord);
       break;
