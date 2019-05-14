@@ -1,1 +1,4 @@
 node_modules
+build
+dist
+css/style.css
