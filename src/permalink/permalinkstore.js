@@ -22,16 +22,21 @@ function getSaveLayers(layers) {
   return saveLayers;
 }
 
-permalinkStore.getState = function getState() {
+permalinkStore.getState = function getState(isExtended) {
   const state = {};
   const view = viewer.getMap().getView();
   const layers = viewer.getLayers();
   state.layers = getSaveLayers(layers);
   state.center = view.getCenter().map(coord => Math.round(coord)).join();
   state.zoom = view.getZoom().toString();
-  state.controls = {
-    draw: draw.getState()
-  };
+  if (isExtended) {
+    const drawCtrl = viewer.getControlByName('draw');
+    if (drawCtrl) {
+      state.controls = {
+        draw: draw.getState()
+      };
+    }
+  }
 
   if (featureinfo.getSelection().id) {
     state.feature = featureinfo.getSelection().id;

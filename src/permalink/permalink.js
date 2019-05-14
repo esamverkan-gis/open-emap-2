@@ -34,11 +34,11 @@ export default (() => ({
   setSaveOnServerServiceEndpoint: function setSaveOnServerServiceEndPoint (url) {
     saveOnServerServiceEndPoint = url;
   },
-  saveStateToServer: function saveStateToServer () {
+  saveStateToServer: function saveStateToServer() {
     return $.ajax({
       type: 'POST',
       url: saveOnServerServiceEndPoint,
-      data: JSON.stringify(permalinkStore.getState()),
+      data: JSON.stringify(permalinkStore.getState(true)),
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
     });
