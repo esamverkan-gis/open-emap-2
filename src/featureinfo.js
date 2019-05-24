@@ -83,12 +83,16 @@ function getSelection() {
     selection.geometryType = selectionLayer.getFeatures()[0].getGeometry().getType();
     selection.coordinates = selectionLayer.getFeatures()[0].getGeometry().getCoordinates();
     selection.id = selectionLayer.getFeatures()[0].getId();
-    selection.type = selectionLayer.getSourceLayer().get('type');
+    if (selectionLayer.getSourceLayer() !== undefined) {
+      selection.type = selectionLayer.getSourceLayer().get('type');
+    }
 
     if (selection.type === 'WFS') {
       selection.id = selectionLayer.getFeatures()[0].getId();
     } else {
-      selection.id = `${selectionLayer.getSourceLayer().get('name')}.${selectionLayer.getFeatures()[0].getId()}`;
+      if (selectionLayer.getSourceLayer() !== undefined) {
+        selection.id = `${selectionLayer.getSourceLayer().get('name')}.${selectionLayer.getFeatures()[0].getId()}`;
+      }
     }
   }
   return selection;
