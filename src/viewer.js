@@ -277,6 +277,14 @@ function getMapSource() {
   return settings.source;
 }
 
+function getControlByName(name) {
+  const control = settings.controls.find(obj => obj.name === name);
+  if (!control) {
+    return null;
+  }
+  return control;
+}
+
 function getControlNames() {
   return settings.controls.map(obj => obj.name);
 }
@@ -491,6 +499,7 @@ export default {
   getProjectionCode,
   getProjection,
   getMapSource,
+  getControlByName,
   getResolutions,
   getScale,
   scaleToResolution,
