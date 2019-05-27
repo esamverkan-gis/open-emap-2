@@ -89,10 +89,8 @@ function getSelection() {
 
     if (selection.type === 'WFS') {
       selection.id = selectionLayer.getFeatures()[0].getId();
-    } else {
-      if (selectionLayer.getSourceLayer() !== undefined) {
-        selection.id = `${selectionLayer.getSourceLayer().get('name')}.${selectionLayer.getFeatures()[0].getId()}`;
-      }
+    } else if (selectionLayer.getSourceLayer() !== undefined) {
+      selection.id = `${selectionLayer.getSourceLayer().get('name')}.${selectionLayer.getFeatures()[0].getId()}`;
     }
   }
   return selection;
