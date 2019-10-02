@@ -15,7 +15,7 @@ var drawStyle = {
       textAlign: 'center',
       offsetY: -4,
       fill: {
-        color: [0, 153, 255, 1]
+        color: [240,138,0, 1]
       },
       stroke: {
         color: [255, 255, 255, 0.8],
@@ -24,7 +24,7 @@ var drawStyle = {
     }
   }, {
     'stroke': {
-      color: [0, 153, 255, 1],
+      color: [240,138,0, 1],
       width: 3
     }
   }, {
@@ -36,7 +36,7 @@ var drawStyle = {
       anchor: [0.5, 32],
       anchorXUnits: 'fraction',
       anchorYUnits: 'pixels',
-      src: 'img/png/drop_blue.png'
+      src: 'img/png/droppe_orange.png'
     }
   }],
   select: [{
