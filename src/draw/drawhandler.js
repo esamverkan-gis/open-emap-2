@@ -42,7 +42,7 @@ const init = function(opt_options) {
   promptTitle = options.promptTitle || 'Ange text';
   placeholderText = options.placeholderText || 'Text som visas i kartan';
   drawLayer = featureLayer(undefined, map).getFeatureLayer();
-  //drawLayer.setStyle(drawStyle);
+  drawLayer.setStyle(drawStyle);
   activeTool = undefined;
 
   select = new Select({
