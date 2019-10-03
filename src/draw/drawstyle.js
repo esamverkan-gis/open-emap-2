@@ -69,7 +69,7 @@ var drawStyle = {
       textBaseline: 'bottom',
       textAlign: 'center',
       fill: {
-        color: blue
+        color: [240,138,0, 1]
       },
       stroke: {
         color: [255, 255, 255, 0.8],
