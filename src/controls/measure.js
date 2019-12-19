@@ -168,7 +168,7 @@ function pointerMoveHandler(evt) {
       area = formatArea( /** @type {Polygon} */(geom));
       tooltipCoord = geom.getInteriorPoint().getCoordinates();
       coords = geom.getCoordinates()[0];
-      
+
     } else if (geom instanceof LineString) {
       output = formatLength((geom));
       tooltipCoord = geom.getLastCoordinate();
@@ -307,8 +307,8 @@ function onEnableInteraction(e) {
     if (areaTool) {
       $('#o-measure-polygon-button').addClass('o-hidden');
     }
-    if (heightTool) { 
-      $('#o-measure-height-button').addClass('o-hidden'); 
+    if (heightTool) {
+      $('#o-measure-height-button').addClass('o-hidden');
     }
     $('#o-measure-button').addClass('tooltip');
 
@@ -324,7 +324,7 @@ function onEnableInteraction(e) {
 
 function toggleType(button) {
   if (activeButton) {
-    activeButton.removeClass('o-measure-button-true'); 
+    activeButton.removeClass('o-measure-button-true');
   }
 
   button.addClass('o-measure-button-true');
@@ -492,7 +492,7 @@ function init({
   heightTool = measureTools.indexOf('height') >= 0 ? true : false;
   defaultTool = lengthTool ? defaultMeasureTool : 'area';
   displayLengthAllSegments = true;//optsDisplayLengthAllSegments;
-  hightToolUrl = "https://kartatest.e-tjansteportalen.se/search/lm/elevation/3006/easting/northing?lmuser=sundsvall";
+  hightToolUrl = "https://karta.e-tjansteportalen.se/search/lm/elevation/3006/easting/northing?lmuser=sundsvall";
 
   if (lengthTool || areaTool) {
     map = viewer.getMap();
