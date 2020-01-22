@@ -71,11 +71,10 @@ const wms = function wms(layerOptions) {
   sourceOptions.id = wmsOptions.id;
   sourceOptions.format = wmsOptions.format ? wmsOptions.format : sourceOptions.format;
   wmsOptions.serverType = sourceOptions.serverType || 'geoserver';
+
   const styleSettings = viewer.getStyleSettings()[wmsOptions.styleName];
-  // const sldStyleObject = styleSettings[0].find(s => s.sldStyle);
-  // if (sldStyleObject) {
-  //   sourceOptions.style = sldStyleObject.sldStyle;
-  // }
+  const wmsStyleObject = styleSettings ? styleSettings[0].find(s => s.wmsStyle) : undefined;
+  sourceOptions.style = wmsStyleObject ? wmsStyleObject.wmsStyle : '';
 
   if (wmsOptions.tileGrid) {
     sourceOptions.tileGrid = maputils.tileGrid(wmsOptions.tileGrid);
