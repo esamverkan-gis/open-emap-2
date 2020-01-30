@@ -492,7 +492,7 @@ function init({
   heightTool = measureTools.indexOf('height') >= 0 ? true : false;
   defaultTool = lengthTool ? defaultMeasureTool : 'area';
   displayLengthAllSegments = true;//optsDisplayLengthAllSegments;
-  hightToolUrl = "https://karta.e-tjansteportalen.se/search/lm/elevation/3006/easting/northing?lmuser=sundsvall";
+  hightToolUrl = "https://karta.sundsvall.se/origoserver/lm/elevation/3006/easting/northing";
 
   if (lengthTool || areaTool) {
     map = viewer.getMap();
