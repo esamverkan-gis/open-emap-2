@@ -73,8 +73,12 @@ const wms = function wms(layerOptions) {
   wmsOptions.serverType = sourceOptions.serverType || 'geoserver';
 
   const styleSettings = viewer.getStyleSettings()[wmsOptions.styleName];
-  const wmsStyleObject = styleSettings ? styleSettings[0].find(s => s.wmsStyle) : undefined;
-  sourceOptions.style = wmsStyleObject ? wmsStyleObject.wmsStyle : '';
+  const IS_IE11 = !global.ActiveXObject && 'ActiveXObject' in global;
+  // This dosen't work in IE, so skip it.
+  if (!IS_IE11) {
+    const wmsStyleObject = styleSettings ? styleSettings[0].find(s => s.wmsStyle) : undefined;
+    sourceOptions.style = wmsStyleObject ? wmsStyleObject.wmsStyle : '';
+  }
 
   if (wmsOptions.tileGrid) {
     sourceOptions.tileGrid = maputils.tileGrid(wmsOptions.tileGrid);

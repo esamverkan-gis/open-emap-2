@@ -1,18 +1,18 @@
 // this module is slightly different from prepare suggestions and is used for awsomeplete
 
 "use strict";
-// this module request data from https://karta.e-tjansteportalen.se and returns an array 
+// this module request data from https://karta.sundsvall.se/origoserver and returns an array
 // of suggestions to be shown for the search field
 
 import communeCodes from '../utils/communecodes';
 var _ = require('lodash');
 /*
-  { 
+  {
    "NAMN": "Erik vallers väg 12a",
-   "GID": 1027, 
-   "TYPE": "hallstakartan.tk_s_ads_p", 
-   "layer": "Adress", 
-   "st_astext": "POINT(134690.511 6610941.918)" 
+   "GID": 1027,
+   "TYPE": "hallstakartan.tk_s_ads_p",
+   "layer": "Adress",
+   "st_astext": "POINT(134690.511 6610941.918)"
  }
  */
 
@@ -37,7 +37,7 @@ var makeRequest = function (prepOptions, q) {
     .then(function(data) {
       return data;
     })
-    .catch(function(err) { 
+    .catch(function(err) {
       throw new Error('Något gick fel, kunde inte hämta data');
     });
 }
@@ -60,11 +60,11 @@ var extractNames = function (url_fastighet) {
     // OBS!  response.constructor.name does not work in IE
     // if (response !== null && response.constructor.name === 'Array') {
     if ( response !== null && Object.prototype.toString.call( response ) === '[object Array]' ) {
-      
+
       matches = response.map(function(obj) {
         return {
           "NAMN": obj.properties.name,
-          "id": obj.properties.objid,          
+          "id": obj.properties.objid,
           "TYPE": "hallstakartan.tk_s_ads_p",
           "layer": "Fastighet",
           //this line has no effect bcuz the geometry will be requested later and this won't be used at all
@@ -92,15 +92,15 @@ var extractAddresses = function (url_adress, q, limit) {
   return dataPromise.then(function (response) {
 
     // if (response === null || response.constructor.name !== 'Array') {
-    if ( response === null || Object.prototype.toString.call( response ) !== '[object Array]' ) {      
+    if ( response === null || Object.prototype.toString.call( response ) !== '[object Array]' ) {
       return [];
     }
-    
+
     // an array that will be populated with substring matches
     var preliminaryMatches = [];
     var i = 0;
     // iterate through the pool of strings and populate the object below by different groups based on the street names!
-    // in other words all addresses coming from the same street name will be placed in a single group. this gives us a 
+    // in other words all addresses coming from the same street name will be placed in a single group. this gives us a
     // better possibility of evenly spreading the results.
     var searchResultsBasedOnStreetName = {};
     $.each(response, function (i, arrObj) {
@@ -160,12 +160,13 @@ var extractOrter = function (url_ort, q, limit) {
   return dataPromise.then(function(response) {
 
     // if (response === null || response.constructor.name !== 'Array') {
-    if ( response === null || Object.prototype.toString.call( response ) !== '[object Array]' ) {      
+    if ( response === null || Object.prototype.toString.call( response ) !== '[object Array]' ) {
       return [];
     }
 
-    // regex used to determine if a string contains the substring 'q'
+    // regex used to determine if a string starts with the substring 'q'
     var substrRegex = new RegExp('^' + q, 'i');
+    // regex used to determine if a string contains the substring 'q'
     var substrRegexGeneral = new RegExp(q, 'i');
     // iterate through the pool of strings and for any string that
     // contains the substring 'q', add it to the 'matches' array
@@ -177,6 +178,7 @@ var extractOrter = function (url_ort, q, limit) {
       if (substrRegex.test(obj.properties.name)) {
         matches.push({
           "NAMN": obj.properties.name,
+          "id": obj.properties.id,
           // "TYPE": "hallstakartan.tk_s_ads_p",
           "layer": "Ort",
           "st_astext": "POINT(" + obj.geometry.coordinates[1] + " " + obj.geometry.coordinates[0] + ")",
@@ -193,8 +195,8 @@ var extractOrter = function (url_ort, q, limit) {
               "id": obj.properties.id,
               "TYPE": "hallstakartan.tk_s_ads_p",
               "layer": "Ort",
-              "st_astext": "POINT(134690.511 6610941.918)",
-              "geometry_format": "WKT"          
+              "st_astext": "POINT(" + obj.geometry.coordinates[1] + " " + obj.geometry.coordinates[0] + ")",
+              "geometry_format": "WKT"
             }
           );
         }
@@ -277,7 +279,7 @@ function prepCommuneCodes(municipalities) {
   }
   return results.join(",");
 }
-export default {  
+export default {
   extractNames,
   extractAddresses,
   extractOrter,
