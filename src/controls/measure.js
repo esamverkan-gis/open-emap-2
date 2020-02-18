@@ -376,11 +376,11 @@ function fetchHeight(coordinates) {
   var url2 = url1.replace("northing", coordinates[1]);
 
   //TODO! Trasigt! remove need for proxy!
-  var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+  //var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
 
-  if (location.hostname != 'sundsvall.se' && location.hostname != 'www.sundsvall.se') {
-    url2 = cors_api_url + url2;
-  }
+  //if (location.hostname != 'sundsvall.se' && location.hostname != 'www.sundsvall.se') {
+    //url2 = cors_api_url + url2;
+  //}
 
   return $.ajax({
     url: url2,
@@ -485,14 +485,15 @@ function init({
   default: defaultMeasureTool = 'length',
   measureTools = ['length', 'area'],
   target = '#o-toolbar-maptools',
+  url = 'https://karta.sundsvall.se/origoserver/lm/elevation/3006/easting/northing',
   optsDisplayLengthAllSegments = false
 } = {}) {
   lengthTool = measureTools.indexOf('length') >= 0;
   areaTool = measureTools.indexOf('area') >= 0;
   heightTool = measureTools.indexOf('height') >= 0 ? true : false;
   defaultTool = lengthTool ? defaultMeasureTool : 'area';
-  displayLengthAllSegments = true;//optsDisplayLengthAllSegments;
-  hightToolUrl = "https://karta.sundsvall.se/origoserver/lm/elevation/3006/easting/northing";
+  displayLengthAllSegments = true; // optsDisplayLengthAllSegments;
+  hightToolUrl = url;
 
   if (lengthTool || areaTool) {
     map = viewer.getMap();
